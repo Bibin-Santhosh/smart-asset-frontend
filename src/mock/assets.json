@@ -1,0 +1,4 @@
+[
+  { "id": 1, "name": "Laptop", "status": "Available" },
+  { "id": 2, "name": "Printer", "status": "Assigned" }
+]

@@ -1,0 +1,74 @@
+/* CONTAINER */
+.edit-asset-container {
+  max-width: 520px;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* TITLE */
+.edit-asset-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.edit-asset-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* INPUTS & SELECTS */
+.edit-asset-form input,
+.edit-asset-form select {
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.edit-asset-form input:focus,
+.edit-asset-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* BUTTONS */
+.edit-asset-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.edit-asset-btn {
+  flex: 1;
+  padding: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-asset-btn:hover {
+  background: #1e40af;
+}
+
+.edit-asset-cancel {
+  flex: 1;
+  padding: 10px;
+  background: #e5e7eb;
+  color: #111827;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-asset-cancel:hover {
+  background: #d1d5db;
+}

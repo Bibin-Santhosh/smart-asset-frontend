@@ -1,0 +1,118 @@
+.dashboard {
+  padding: 30px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+.dashboard-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* STAT CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card h4 {
+  font-size: 14px;
+  color: #666;
+}
+
+.card h2 {
+  margin-top: 8px;
+  font-size: 28px;
+}
+
+.icon {
+  font-size: 28px;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+/* ICON COLORS */
+.assets { background: #e0e7ff; color: #4338ca; }
+.inventory { background: #dcfce7; color: #166534; }
+.assigned { background: #ede9fe; color: #6d28d9; }
+.lowstock { background: #fee2e2; color: #b91c1c; }
+.tickets { background: #ffedd5; color: #c2410c; }
+
+/* CHART SECTION */
+.charts {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.chart-box {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.chart-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+/* ===============================
+   RECENT ACTIVITY
+================================ */
+
+.activity-box {
+  margin-top: 30px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.activity-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.activity-item:last-child {
+  margin-bottom: 0;
+}
+
+.activity-text {
+  color: #111827;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.no-activity {
+  color: #6b7280;
+  font-size: 14px;
+}

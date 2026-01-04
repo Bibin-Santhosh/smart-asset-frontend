@@ -1,0 +1,42 @@
+.users-page {
+  padding: 20px;
+}
+
+.search-box {
+  width: 250px;
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+.users-table {
+  background: #fff;
+  border-radius: 6px;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.role {
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: #fff;
+  width: fit-content;
+  font-size: 12px;
+}
+
+.role.admin {
+  background: #e53935;
+}
+
+.role.employee {
+  background: #1e88e5;
+}
+
+.role.technician {
+  background: #fb8c00;
+}

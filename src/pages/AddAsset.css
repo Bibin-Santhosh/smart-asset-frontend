@@ -1,0 +1,53 @@
+/* PAGE CONTAINER */
+.add-asset-container {
+  max-width: 520px;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* PAGE TITLE */
+.add-asset-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.add-asset-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* INPUTS & SELECTS */
+.add-asset-form input,
+.add-asset-form select {
+  padding: 10px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.add-asset-form input:focus,
+.add-asset-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* BUTTON */
+.add-asset-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-asset-btn:hover {
+  background: #1e40af;
+}

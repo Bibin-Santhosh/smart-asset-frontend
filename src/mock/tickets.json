@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "asset": "Laptop",
+    "issue": "Screen not working",
+    "status": "Open",
+    "technician": "Rahul"
+  },
+  {
+    "id": 2,
+    "asset": "Printer",
+    "issue": "Paper jam",
+    "status": "In Progress",
+    "technician": "Anil"
+  },
+  {
+    "id": 3,
+    "asset": "Router",
+    "issue": "No internet connection",
+    "status": "Closed",
+    "technician": "Suresh"
+  }
+]

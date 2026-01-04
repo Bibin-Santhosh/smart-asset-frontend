@@ -1,0 +1,79 @@
+.inventory-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.inventory-toolbar input,
+.inventory-toolbar select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-outline {
+  background: white;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.inventory-table th {
+  text-align: left;
+  font-weight: 600;
+}
+
+.low {
+  color: red;
+  font-weight: 600;
+}
+
+.ok {
+  color: green;
+  font-weight: 600;
+}
+
+.link {
+  color: #2563eb;
+  margin-right: 14px;
+  cursor: pointer;
+}
+
+.link.danger {
+  color: red;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+}

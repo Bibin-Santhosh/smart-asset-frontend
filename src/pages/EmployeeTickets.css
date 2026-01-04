@@ -1,0 +1,175 @@
+/* ===============================
+   Tickets Page
+   =============================== */
+
+.tickets-page {
+  padding: 24px;
+}
+
+.tickets-page h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #111827;
+}
+
+/* ===============================
+   Toolbar
+   =============================== */
+
+.tickets-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.tickets-toolbar input,
+.tickets-toolbar select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.tickets-toolbar input:focus,
+.tickets-toolbar select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.tickets-toolbar button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tickets-toolbar button:hover {
+  background: #f9fafb;
+}
+
+/* Raise Ticket Button */
+.raise-btn {
+  background: #2563eb !important;
+  color: #ffffff;
+  border: none !important;
+}
+
+.raise-btn:hover {
+  background: #1e40af !important;
+}
+
+/* ===============================
+   Table Card
+   =============================== */
+
+.tickets-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Table */
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tickets-table thead th {
+  background: #f9fafb;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tickets-table tbody td {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #111827;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tickets-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===============================
+   Status Badges
+   =============================== */
+
+.ticket-status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* OPEN */
+.ticket-status.open {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* IN PROGRESS */
+.ticket-status.in_progress {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+/* CLOSED */
+.ticket-status.closed {
+  background: #dcfce7;
+  color: #047857;
+}
+
+/* ===============================
+   Empty State
+   =============================== */
+
+.empty-row {
+  text-align: center;
+  padding: 30px;
+  color: #6b7280;
+}
+
+/* ===============================
+   Responsive
+   =============================== */
+
+@media (max-width: 768px) {
+  .tickets-toolbar {
+    flex-direction: column;
+  }
+
+  .tickets-table thead {
+    display: none;
+  }
+
+  .tickets-table tbody tr {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .tickets-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+  }
+
+  .tickets-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+  }
+}

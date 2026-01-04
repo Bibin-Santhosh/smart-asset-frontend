@@ -1,0 +1,34 @@
+.app-footer {
+  width: 100%;
+  background: #f1f5f9;
+  text-align: center;
+  padding: 14px;
+  font-size: 14px;
+  color: #374151;
+  margin-top: 40px;
+}
+
+.app-footer a {
+  color: #1e3a8a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+.footer {
+  height: 50px;
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #334155;
+}
+
+.footer a {
+  color: #2563eb;
+  text-decoration: none;
+  margin-left: 5px;
+}
