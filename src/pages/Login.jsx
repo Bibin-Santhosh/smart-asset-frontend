@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import api from "../api";     // ✅ IMPORTANT: use backend API instance
+import api from "../api";
 import "./Login.css";
 
 function Login() {
@@ -14,32 +14,34 @@ function Login() {
 
     try {
       const response = await api.post("login/", {
-        username: username,
-        password: password,
+        username,
+        password,
       });
 
-      // JWT token from backend
-      const token = response.data.access;
+      // Tokens from backend
+      const access = response.data.access;
+      const refresh = response.data.refresh;
 
-      // Save token
-      localStorage.setItem("token", token);
+      // ✅ STORE USING CORRECT KEYS
+      localStorage.setItem("access", access);
+      localStorage.setItem("refresh", refresh);
 
       // Decode JWT to get role
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode(access);
       const role = decoded.role;
 
       console.log("Logged in role:", role);
 
       // Role-based redirect
       if (role === "ADMIN") {
-  navigate("/dashboard");
-} else if (role === "TECHNICIAN") {
-  navigate("/technician-dashboard");
-} else if (role === "EMPLOYEE") {
-  navigate("/employee-dashboard");
-} else {
-  alert("Role not assigned. Contact admin.");
-}
+        navigate("/dashboard");
+      } else if (role === "TECHNICIAN") {
+        navigate("/technician-dashboard");
+      } else if (role === "EMPLOYEE") {
+        navigate("/employee-dashboard");
+      } else {
+        alert("Role not assigned. Contact admin.");
+      }
 
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
