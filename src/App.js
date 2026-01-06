@@ -29,22 +29,16 @@ import Sidebar from "./components/Sidebar";
 function Layout({ children }) {
   return (
     <>
-    
-      {/* HEADER */}
       <Header />
 
-      {/* BODY (SIDEBAR + CONTENT) */}
       <div style={{ display: "flex", minHeight: "calc(100vh - 120px)" }}>
-        {/* LEFT SIDEBAR */}
         <Sidebar />
 
-        {/* PAGE CONTENT */}
         <main style={{ flex: 1, padding: "24px", background: "#f1f5f9" }}>
           {children}
         </main>
       </div>
 
-      {/* FOOTER */}
       <Footer />
     </>
   );
@@ -55,188 +49,215 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Login page (NO layout) */}
+        {/* 🔓 Login (Public) */}
         <Route path="/" element={<Login />} />
 
-        {/* Dashboard */}
+        {/* 👑 ADMIN DASHBOARD */}
         <Route
           path="/dashboard"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* Assets */}
+        {/* 📦 ASSETS */}
         <Route
           path="/assets"
           element={
-            <Layout>
-              <Assets />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Assets />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/assets/add"
           element={
-            <Layout>
-              <AddAsset />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <AddAsset />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/assets/view/:id"
           element={
-            <Layout>
-              <ViewAsset />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <ViewAsset />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/assets/edit/:id"
           element={
-            <Layout>
-              <EditAsset />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <EditAsset />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* Inventory */}
+        {/* 📦 INVENTORY */}
         <Route
           path="/inventory"
           element={
-            <Layout>
-              <Inventory />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Inventory />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/inventory/add"
           element={
-            <Layout>
-              <AddInventory />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <AddInventory />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/inventory/edit/:id"
           element={
-            <Layout>
-              <EditInventory />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <EditInventory />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* Tickets */}
+        {/* 🎫 TICKETS */}
         <Route
           path="/tickets"
           element={
-            <Layout>
-              <Tickets />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Tickets />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* Assignments */}
+        {/* 📋 ASSIGNMENTS */}
         <Route
           path="/assignments"
           element={
-            <Layout>
-              <Assignments />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Assignments />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
         <Route
           path="/assignments/add"
           element={
-            <Layout>
-              <AddAssignment />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <AddAssignment />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* ✅ USERS PAGE */}
+        {/* 👥 USERS */}
         <Route
           path="/users"
           element={
-            <Layout>
-              <Users />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <Layout>
+                <Users />
+              </Layout>
+            </ProtectedRoute>
           }
         />
 
-        {/* Profile */}
+        {/* 👤 PROFILE */}
         <Route
           path="/profile"
           element={
-            <Layout>
-              <Profile />
-            </Layout>
+            <ProtectedRoute allowedRoles={["ADMIN", "EMPLOYEE", "TECHNICIAN"]}>
+              <Layout>
+                <Profile />
+              </Layout>
+            </ProtectedRoute>
           }
         />
-        {/* 👨‍💼 Employee Dashboard */}
-<Route
-  path="/employee-dashboard"
-  element={
-    <ProtectedRoute allowedRoles={["Employee"]}>
-      <Layout>
-        <EmployeeDashboard />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
 
-{/* 🧑‍🔧 Technician Dashboard */}
-<Route
-  path="/technician-dashboard"
-  element={
-    <ProtectedRoute allowedRoles={["Technician"]}>
-      <Layout>
-        <TechnicianDashboard />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/report-issue"
-  element={
-    <ProtectedRoute allowedRoles={["Employee"]}>
-      <Layout>
-        <ReportIssue />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/employee-assignments"
-  element={
-    <ProtectedRoute allowedRoles={["Employee"]}>
-      <Layout>
-        <EmployeeAssignments />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/employee-tickets"
-  element={
-    <ProtectedRoute allowedRoles={["Employee"]}>
-      <Layout>
-        <EmployeeTickets />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+        {/* 👨‍💼 EMPLOYEE */}
+        <Route
+          path="/employee-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
+              <Layout>
+                <EmployeeDashboard />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/employee-assignments"
+          element={
+            <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
+              <Layout>
+                <EmployeeAssignments />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/employee-tickets"
+          element={
+            <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
+              <Layout>
+                <EmployeeTickets />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/report-issue"
+          element={
+            <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
+              <Layout>
+                <ReportIssue />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🧑‍🔧 TECHNICIAN */}
+        <Route
+          path="/technician-dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["TECHNICIAN"]}>
+              <Layout>
+                <TechnicianDashboard />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>
