@@ -34,14 +34,15 @@ function Login() {
 
       // Role-based redirect
       if (role === "ADMIN") {
-        navigate("/dashboard");
-      } else if (role === "TECHNICIAN") {
-        navigate("/technician-dashboard");
-      } else if (role === "EMPLOYEE") {
-        navigate("/employee-dashboard");
-      } else {
-        alert("Role not assigned. Contact admin.");
-      }
+  window.location.href = "/dashboard";
+} else if (role === "TECHNICIAN") {
+  window.location.href = "/technician-dashboard";
+} else if (role === "EMPLOYEE") {
+  window.location.href = "/employee-dashboard";
+} else {
+  alert("Role not assigned. Contact admin.");
+}
+
 
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
