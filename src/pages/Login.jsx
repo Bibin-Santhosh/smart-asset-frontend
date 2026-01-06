@@ -33,15 +33,16 @@ function Login() {
       console.log("Logged in role:", role);
 
       // Role-based redirect
-      if (role === "ADMIN") {
-  window.location.href = "/dashboard";
+    if (role === "ADMIN") {
+  navigate("/dashboard");
 } else if (role === "TECHNICIAN") {
-  window.location.href = "/technician-dashboard";
+  navigate("/technician-dashboard");
 } else if (role === "EMPLOYEE") {
-  window.location.href = "/employee-dashboard";
+  navigate("/employee-dashboard");
 } else {
   alert("Role not assigned. Contact admin.");
 }
+
 
 
     } catch (error) {
