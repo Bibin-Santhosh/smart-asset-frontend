@@ -31,15 +31,15 @@ function Login() {
       console.log("Logged in role:", role);
 
       // Role-based redirect
-      if (role === "Admin") {
-        navigate("/dashboard");
-      } else if (role === "Technician") {
-        navigate("/technician-dashboard");
-      } else if (role === "Employee") {
-        navigate("/employee-dashboard");
-      } else {
-        alert("Role not assigned. Contact admin.");
-      }
+      if (role === "ADMIN") {
+  navigate("/dashboard");
+} else if (role === "TECHNICIAN") {
+  navigate("/technician-dashboard");
+} else if (role === "EMPLOYEE") {
+  navigate("/employee-dashboard");
+} else {
+  alert("Role not assigned. Contact admin.");
+}
 
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
