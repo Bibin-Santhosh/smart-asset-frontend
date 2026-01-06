@@ -1,26 +1,18 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: "https://smart-asset-inventory-management-system-production.up.railway.app/api/",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-/* ============================
-   REQUEST INTERCEPTOR
-   Attach JWT ONLY to API calls
-   ============================ */
+/* REQUEST INTERCEPTOR */
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
-    // 🔒 Attach token ONLY for protected endpoints
-    if (
-      token &&
-      !config.url.includes("login") &&
-      !config.url.includes("register")
-    ) {
+    if (token && !config.url.includes("login")) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -29,10 +21,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-/* ============================
-   RESPONSE INTERCEPTOR
-   Handle token expiry AFTER login
-   ============================ */
+/* RESPONSE INTERCEPTOR */
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -41,13 +30,9 @@ api.interceptors.response.use(
       error.response.status === 401 &&
       !error.config.url.includes("login")
     ) {
-      console.warn("Unauthorized – token expired");
-
       localStorage.removeItem("token");
-
       window.location.href = "/";
     }
-
     return Promise.reject(error);
   }
 );
