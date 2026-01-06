@@ -9,13 +9,18 @@ const api = axios.create({
 
 /* ============================
    REQUEST INTERCEPTOR
-   Attach JWT token
+   Attach JWT ONLY to API calls
    ============================ */
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
-    if (token) {
+    // 🔒 Attach token ONLY for protected endpoints
+    if (
+      token &&
+      !config.url.includes("login") &&
+      !config.url.includes("register")
+    ) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -26,18 +31,20 @@ api.interceptors.request.use(
 
 /* ============================
    RESPONSE INTERCEPTOR
-   Handle 401 / token expiry
+   Handle token expiry AFTER login
    ============================ */
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      console.warn("Unauthorized – token expired or invalid");
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !error.config.url.includes("login")
+    ) {
+      console.warn("Unauthorized – token expired");
 
-      // Remove token
       localStorage.removeItem("token");
 
-      // Redirect to login
       window.location.href = "/";
     }
 
