@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import api from "../api";     // ✅ IMPORTANT: use backend API instance
 import "./Login.css";
 
 function Login() {
@@ -13,24 +13,22 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "login/",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await api.post("login/", {
+        username: username,
+        password: password,
+      });
 
+      // JWT token from backend
       const token = response.data.access;
 
-      // Save JWT token
+      // Save token
       localStorage.setItem("token", token);
 
-      // Decode token to get role
+      // Decode JWT to get role
       const decoded = jwtDecode(token);
       const role = decoded.role;
 
-      console.log("Logged in role:", role); // DEBUG (remove later)
+      console.log("Logged in role:", role);
 
       // Role-based redirect
       if (role === "Admin") {
@@ -44,16 +42,16 @@ function Login() {
       }
 
     } catch (error) {
+      console.error("Login error:", error.response?.data || error.message);
       alert("Invalid username or password");
-      console.error(error.response?.data);
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form">
         <input
           type="text"
           placeholder="Username"
