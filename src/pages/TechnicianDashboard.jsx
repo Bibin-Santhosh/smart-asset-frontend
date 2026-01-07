@@ -20,25 +20,25 @@ function TechnicianDashboard() {
     loadRecentActivity();
   }, []);
 
-  const loadDashboard = () => {
-    api.get("technician/dashboard/")
-      .then(res => {
-        setStats(res.data.stats);
-        setTickets(res.data.tickets);
-      })
-      .catch(err => console.error("Technician dashboard error:", err));
+  const loadDashboard = async () => {
+    try {
+      const res = await api.get("technician/dashboard/");
+      setStats(res.data.stats);
+      setTickets(res.data.tickets);
+    } catch (err) {
+      console.error("Technician dashboard error:", err.response?.data || err);
+    }
   };
 
-  const loadRecentActivity = () => {
-    api.get("technician/recent-activity/")
-      .then(res => {
-        setActivity(res.data);
-        setActivityLoading(false);
-      })
-      .catch(err => {
-        console.error("Recent activity error:", err);
-        setActivityLoading(false);
-      });
+  const loadRecentActivity = async () => {
+    try {
+      const res = await api.get("technician/recent-activity/");
+      setActivity(res.data);
+    } catch (err) {
+      console.error("Recent activity error:", err.response?.data || err);
+    } finally {
+      setActivityLoading(false);
+    }
   };
 
   /* -------------------- MODAL -------------------- */
@@ -55,13 +55,18 @@ function TechnicianDashboard() {
   };
 
   const updateStatus = async () => {
-    await api.patch(
-      `technician/tickets/${selectedTicket.id}/status/`,
-      { status }
-    );
-    closeModal();
-    loadDashboard();
-    loadRecentActivity(); // refresh activity
+    try {
+      await api.patch(
+        `technician/tickets/${selectedTicket.id}/status/`,
+        { status }
+      );
+      closeModal();
+      loadDashboard();
+      loadRecentActivity();
+    } catch (err) {
+      console.error("Update status error:", err.response?.data || err);
+      alert("Failed to update ticket status");
+    }
   };
 
   /* -------------------- HELPERS -------------------- */
@@ -85,7 +90,6 @@ function TechnicianDashboard() {
 
   return (
     <div className="tech-dashboard">
-
       <h2>Technician Dashboard</h2>
 
       {/* ===== STAT CARDS ===== */}
@@ -109,10 +113,10 @@ function TechnicianDashboard() {
 
         {tickets.length === 0 && <p>No tickets assigned</p>}
 
-        {tickets.map(t => (
+        {tickets.map((t) => (
           <div key={t.id} className="ticket-row">
             <div>
-              <strong>{t.asset}</strong>
+              <strong>{t.asset_name || `Asset #${t.asset}`}</strong>
               <p>{t.issue}</p>
             </div>
 
@@ -127,37 +131,37 @@ function TechnicianDashboard() {
           </div>
         ))}
       </div>
-       <br></br>
+
+      <br />
+
       {/* ===== RECENT ACTIVITY ===== */}
-<div className="tech-section">
-  <h3>Recent Activity</h3>
+      <div className="tech-section">
+        <h3>Recent Activity</h3>
 
-  {activityLoading && (
-    <p className="no-activity">Loading activity...</p>
-  )}
+        {activityLoading && <p className="no-activity">Loading activity...</p>}
 
-  {!activityLoading && activity.length === 0 && (
-    <p className="no-activity">No recent activity</p>
-  )}
+        {!activityLoading && activity.length === 0 && (
+          <p className="no-activity">No recent activity</p>
+        )}
 
-  <div className="activity-list">
-    {activity.map((item, index) => (
-      <div key={index} className="activity-item">
-        <div className={`activity-dot ${getActivityClass(item.message)}`} />
-
-        <div className="activity-content">
-          <p className="activity-message">
-            {item.message.replace("_", " ")}
-          </p>
+        <div className="activity-list">
+          {activity.map((item, index) => (
+            <div key={index} className="activity-item">
+              <div
+                className={`activity-dot ${getActivityClass(item.message)}`}
+              />
+              <div className="activity-content">
+                <p className="activity-message">
+                  {item.message.replace(/_/g, " ")}
+                </p>
+              </div>
+              <span className="activity-time">
+                {formatTime(item.time)}
+              </span>
+            </div>
+          ))}
         </div>
-
-        <span className="activity-time">
-          {formatTime(item.time)}
-        </span>
       </div>
-    ))}
-  </div>
-</div>
 
       {/* ===== MODAL ===== */}
       {showModal && (
@@ -166,7 +170,7 @@ function TechnicianDashboard() {
             <h3>Update Ticket Status</h3>
 
             <label>Status</label>
-            <select value={status} onChange={e => setStatus(e.target.value)}>
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="OPEN">Open</option>
               <option value="IN_PROGRESS">In Progress</option>
               <option value="CLOSED">Closed</option>
@@ -183,7 +187,6 @@ function TechnicianDashboard() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
