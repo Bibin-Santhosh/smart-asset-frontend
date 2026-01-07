@@ -98,7 +98,7 @@ function Sidebar() {
 
             {/* ✅ SAME TICKETS PAGE, FILTERED BY BACKEND */}
             <NavLink to="/tickets" className="link">
-              <FaTools /> Assigned Tickets
+              <FaTools />  Tickets
             </NavLink>
           
         
