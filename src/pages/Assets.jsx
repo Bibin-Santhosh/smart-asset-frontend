@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../api"; // ✅ USE CONFIGURED API
 import "./Assets.css";
 
 const Assets = () => {
@@ -15,26 +15,22 @@ const Assets = () => {
   }, []);
 
   const fetchAssets = () => {
-    axios
-      .get("http://127.0.0.1:8000/api/assets/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+    api
+      .get("assets/")
       .then((res) => setAssets(res.data))
-      .catch(() => alert("Failed to load assets"));
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to load assets");
+      });
   };
 
   const deleteAsset = (id) => {
     if (!window.confirm("Delete this asset?")) return;
 
-    axios
-      .delete(`http://127.0.0.1:8000/api/assets/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => fetchAssets());
+    api
+      .delete(`assets/${id}/`)
+      .then(() => fetchAssets())
+      .catch(() => alert("Delete failed"));
   };
 
   // SEARCH
@@ -57,7 +53,6 @@ const Assets = () => {
     <div>
       <h2>Assets</h2>
 
-      {/* TOP BAR */}
       <div className="assets-top-bar">
         <input
           type="text"
@@ -68,10 +63,7 @@ const Assets = () => {
 
         <div className="sort-box">
           <label>Sort by</label>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="name">Name</option>
             <option value="type">Type</option>
             <option value="status">Status</option>
@@ -95,7 +87,6 @@ const Assets = () => {
         </button>
       </div>
 
-      {/* TABLE */}
       <table className="assets-table">
         <thead>
           <tr>
