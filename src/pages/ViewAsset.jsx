@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import "./ViewAsset.css";
 
 const ViewAsset = () => {
@@ -9,14 +9,20 @@ const ViewAsset = () => {
   const [asset, setAsset] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/api/assets/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => setAsset(res.data))
-      .catch(() => alert("Failed to load asset"));
+    const loadAsset = async () => {
+      try {
+        const res = await api.get(`assets/${id}/`);
+        setAsset(res.data);
+      } catch (error) {
+        console.error(
+          "Load asset error:",
+          error.response?.data || error.message
+        );
+        alert("Failed to load asset");
+      }
+    };
+
+    loadAsset();
   }, [id]);
 
   if (!asset) return <p>Loading...</p>;
