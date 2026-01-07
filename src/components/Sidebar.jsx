@@ -8,21 +8,20 @@ import {
   FaUser,
   FaUsers,
   FaBug,
-  FaTicketAlt
+  FaTicketAlt,
 } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
 
 import "./Sidebar.css";
 
-
 /* Get role from JWT */
 function getUserRole() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("access"); // ✅ FIXED KEY
   if (!token) return null;
 
   try {
     const decoded = jwtDecode(token);
-    return decoded.role; // Admin | Employee | Technician
+    return decoded.role; // ADMIN | EMPLOYEE | TECHNICIAN
   } catch {
     return null;
   }
@@ -41,7 +40,7 @@ function Sidebar() {
       <nav className="sidebar-menu">
 
         {/* ================= ADMIN ================= */}
-        {role === "Admin" && (
+        {role === "ADMIN" && (
           <>
             <NavLink to="/dashboard" className="link">
               <FaTachometerAlt /> Dashboard
@@ -70,7 +69,7 @@ function Sidebar() {
         )}
 
         {/* ================= EMPLOYEE ================= */}
-        {role === "Employee" && (
+        {role === "EMPLOYEE" && (
           <>
             <NavLink to="/employee-dashboard" className="link">
               <FaTachometerAlt /> Dashboard
@@ -81,18 +80,17 @@ function Sidebar() {
             </NavLink>
 
             <NavLink to="/employee-assignments" className="link">
-  <FaClipboardList /> Assignments
-</NavLink>
-<NavLink to="/employee-tickets" className="link">
-  <FaTicketAlt /> My Tickets
-</NavLink>
+              <FaClipboardList /> Assignments
+            </NavLink>
 
-
+            <NavLink to="/employee-tickets" className="link">
+              <FaTicketAlt /> My Tickets
+            </NavLink>
           </>
         )}
 
-        {/* ================= TECHNICIAN (OPTIONAL) ================= */}
-        {role === "Technician" && (
+        {/* ================= TECHNICIAN ================= */}
+        {role === "TECHNICIAN" && (
           <>
             <NavLink to="/technician-dashboard" className="link">
               <FaTachometerAlt /> Dashboard
