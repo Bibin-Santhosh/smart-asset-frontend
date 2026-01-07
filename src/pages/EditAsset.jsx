@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import "./EditAsset.css";
 
 const EditAsset = () => {
@@ -9,43 +9,48 @@ const EditAsset = () => {
 
   const [form, setForm] = useState({
     name: "",
-    type: "",
+    type: "LAPTOP",
     serial_number: "",
-    status: "",
+    status: "AVAILABLE",
     purchase_date: "",
   });
 
+  /* LOAD ASSET */
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/api/assets/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => setForm(res.data))
-      .catch(() => alert("Failed to load asset"));
+    const loadAsset = async () => {
+      try {
+        const res = await api.get(`assets/${id}/`);
+        setForm(res.data);
+      } catch (error) {
+        console.error("Load asset error:", error.response?.data || error.message);
+        alert("Failed to load asset");
+      }
+    };
+
+    loadAsset();
   }, [id]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .put(`http://127.0.0.1:8000/api/assets/${id}/`, form, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        alert("Asset updated successfully");
-        navigate("/assets");
-      })
-      .catch((err) => {
-        alert(JSON.stringify(err.response?.data, null, 2));
-      });
+    try {
+      await api.put(`assets/${id}/`, form);
+      alert("Asset updated successfully");
+      navigate("/assets");
+    } catch (error) {
+      console.error("Update asset error:", error.response?.data || error.message);
+
+      if (error.response?.data) {
+        const msg = Object.values(error.response.data)[0];
+        alert(Array.isArray(msg) ? msg[0] : msg);
+      } else {
+        alert("Failed to update asset");
+      }
+    }
   };
 
   return (
@@ -75,31 +80,21 @@ const EditAsset = () => {
           required
         />
 
-        <select
-          name="type"
-          value={form.type}
-          onChange={handleChange}
-        >
+        <select name="type" value={form.type} onChange={handleChange}>
           <option value="LAPTOP">Laptop</option>
           <option value="KEYBOARD">Keyboard</option>
           <option value="MOUSE">Mouse</option>
           <option value="MONITOR">Monitor</option>
         </select>
 
-        <select
-          name="status"
-          value={form.status}
-          onChange={handleChange}
-        >
+        <select name="status" value={form.status} onChange={handleChange}>
           <option value="AVAILABLE">Available</option>
           <option value="UNDER_REPAIR">Under Repair</option>
           <option value="ASSIGNED">Assigned</option>
         </select>
 
         <div className="edit-asset-actions">
-          <button className="edit-asset-btn">
-            Update Asset
-          </button>
+          <button className="edit-asset-btn">Update Asset</button>
 
           <button
             type="button"

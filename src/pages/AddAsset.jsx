@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import "./AddAsset.css";
 
 const AddAsset = () => {
@@ -18,22 +18,24 @@ const AddAsset = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://127.0.0.1:8000/api/assets/", form, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then(() => {
-        alert("Asset added successfully");
-        navigate("/assets");
-      })
-      .catch((err) => {
-        alert(JSON.stringify(err.response?.data, null, 2));
-      });
+    try {
+      await api.post("assets/", form);
+      alert("Asset added successfully");
+      navigate("/assets");
+    } catch (error) {
+      console.error("Add asset error:", error.response?.data || error.message);
+
+      // ✅ Show Django validation error properly
+      if (error.response?.data) {
+        const msg = Object.values(error.response.data)[0];
+        alert(Array.isArray(msg) ? msg[0] : msg);
+      } else {
+        alert("Failed to add asset");
+      }
+    }
   };
 
   return (
@@ -44,6 +46,7 @@ const AddAsset = () => {
         <input
           name="name"
           placeholder="Asset Name"
+          value={form.name}
           onChange={handleChange}
           required
         />
@@ -51,6 +54,7 @@ const AddAsset = () => {
         <input
           name="serial_number"
           placeholder="Serial Number"
+          value={form.serial_number}
           onChange={handleChange}
           required
         />
@@ -58,18 +62,19 @@ const AddAsset = () => {
         <input
           type="date"
           name="purchase_date"
+          value={form.purchase_date}
           onChange={handleChange}
           required
         />
 
-        <select name="type" onChange={handleChange}>
+        <select name="type" value={form.type} onChange={handleChange}>
           <option value="LAPTOP">Laptop</option>
           <option value="KEYBOARD">Keyboard</option>
           <option value="MOUSE">Mouse</option>
           <option value="MONITOR">Monitor</option>
         </select>
 
-        <select name="status" onChange={handleChange}>
+        <select name="status" value={form.status} onChange={handleChange}>
           <option value="AVAILABLE">Available</option>
           <option value="UNDER_REPAIR">Under Repair</option>
           <option value="ASSIGNED">Assigned</option>
