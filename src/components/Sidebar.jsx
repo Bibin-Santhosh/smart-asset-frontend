@@ -96,9 +96,12 @@ function Sidebar() {
               <FaTachometerAlt /> Dashboard
             </NavLink>
 
+            {/* ✅ SAME TICKETS PAGE, FILTERED BY BACKEND */}
             <NavLink to="/tickets" className="link">
               <FaTools /> Assigned Tickets
             </NavLink>
+          
+        
           </>
         )}
 
