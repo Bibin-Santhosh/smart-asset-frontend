@@ -19,7 +19,7 @@ import EmployeeDashboard from "./pages/EmployeeDashboard";
 import TechnicianDashboard from "./pages/TechnicianDashboard";
 import EmployeeAssignments from "./pages/EmployeeAssignments";
 import EmployeeTickets from "./pages/EmployeeTickets";
-
+import AddUser from "./pages/AddUser";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
