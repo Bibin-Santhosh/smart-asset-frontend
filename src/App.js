@@ -49,6 +49,18 @@ function App() {
     <BrowserRouter>
       <Routes>
 
+        <Route
+  path="/users/add"
+  element={
+    <ProtectedRoute allowedRoles={["ADMIN"]}>
+      <Layout>
+        <AddUser />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
+
         {/* 🔓 Login (Public) */}
         <Route path="/" element={<Login />} />
 

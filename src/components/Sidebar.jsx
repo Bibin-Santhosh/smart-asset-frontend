@@ -65,6 +65,7 @@ function Sidebar() {
             <NavLink to="/users" className="link">
               <FaUsers /> Users
             </NavLink>
+             <NavLink to="/users/add">➕ Add User</NavLink>
           </>
         )}
 
