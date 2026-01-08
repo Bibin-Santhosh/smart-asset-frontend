@@ -49,7 +49,13 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route
+ 
+
+
+        {/* 🔓 Login (Public) */}
+        <Route path="/" element={<Login />} />
+
+               <Route
   path="/users/add"
   element={
     <ProtectedRoute allowedRoles={["ADMIN"]}>
@@ -59,10 +65,6 @@ function App() {
     </ProtectedRoute>
   }
 />
-
-
-        {/* 🔓 Login (Public) */}
-        <Route path="/" element={<Login />} />
 
         {/* 👑 ADMIN DASHBOARD */}
         <Route
